@@ -54,6 +54,7 @@ const sendMButton = document.getElementById('sendMButton');
     if (socket) {
         socket.emit('send_value', 'X');
         alert("X değeri sunucuya gönderildi.");
+        
     } else {
         alert("Önce socket'e bağlanmalısınız!");
     }
@@ -67,6 +68,7 @@ sendMButton.addEventListener('click', function() {
         alert("Önce socket'e bağlanmalısınız!");
     }
 });
+
 </script>
 
 </body>
