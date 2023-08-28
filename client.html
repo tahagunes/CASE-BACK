@@ -4,25 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Socket.io Test</title>
-    <!-- <script src="/socket.io/socket.io.js"></script> -->
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-
 </head>
 <body>
-  <script>
-    const socket = io.connect('http://localhost:3000');
 
-    socket.on('connect', function() {
-      socket.emit('get_products');
+<button id="connectButton">Socket'e Bağlan</button>
+<button id="getProductsButton">Ürünleri Al</button>
+
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+<script>
+    let socket;
+    const connectButton = document.getElementById('connectButton');
+    const getProductsButton = document.getElementById('getProductsButton');
+
+    connectButton.addEventListener('click', function() {
+        if (!socket) {
+            socket = io.connect('http://localhost:3000');
+
+            socket.on('connect', function() {
+                alert("Socket'e başarıyla bağlandınız.");
+            });
+
+            socket.on('products', function(data) {
+                console.log(data); // Bu kısımda ürün bilgileri konsola yazdırılır.
+                alert('Ürünler alındı ve konsola yazdırıldı.');
+            });
+
+            socket.on('error', function(errorMessage) {
+                console.error(errorMessage);
+                alert('Bir hata oluştu: ' + errorMessage);
+            });
+        } else {
+            alert("Zaten socket'e bağlısınız!");
+        }
     });
 
-    socket.on('products', function(data) {
-      console.log(data); // Bu kısımda ürün bilgileri konsola yazdırılır.
-    });
-
-    socket.on('error', function(errorMessage) {
-      console.error(errorMessage);
+    getProductsButton.addEventListener('click', function() {
+        if (socket) {
+            socket.emit('get_products');
+        } else {
+            alert("Önce socket'e bağlanmalısınız!");
+        }
     });
 </script>
+
 </body>
 </html>
