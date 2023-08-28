@@ -6,21 +6,22 @@
     <title>Socket.io Test</title>
 </head>
 <body>
-
+<!-- Butonlar -->
 <button id="connectButton">Socket'e Bağlan</button>
 <button id="getProductsButton">Ürünleri Al</button>
 <button id="sendXButton">X Gönder</button>
 <button id="sendMButton">M Gönder</button>
-
+<!-- Socket.io scripti -->
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
 <script>
+   // Değişkenler
     let socket;
     const connectButton = document.getElementById('connectButton');
     const getProductsButton = document.getElementById('getProductsButton');
     const sendXButton = document.getElementById('sendXButton');
 const sendMButton = document.getElementById('sendMButton');
-
+// Socket'e bağlanma olayı
     connectButton.addEventListener('click', function() {
         if (!socket) {
             socket = io.connect('http://localhost:3000');
@@ -28,12 +29,12 @@ const sendMButton = document.getElementById('sendMButton');
             socket.on('connect', function() {
                 alert("Socket'e başarıyla bağlandınız.");
             });
-
+// Ürün bilgilerini alındığında gerçekleşecek olaylar
             socket.on('products', function(data) {
                 console.log(data); // Bu kısımda ürün bilgileri konsola yazdırılır.
                 alert('Ürünler alındı ve konsola yazdırıldı.');
             });
-
+// Hata oluştuğunda gerçekleşecek olaylar
             socket.on('error', function(errorMessage) {
                 console.error(errorMessage);
                 alert('Bir hata oluştu: ' + errorMessage);
@@ -42,7 +43,7 @@ const sendMButton = document.getElementById('sendMButton');
             alert("Zaten socket'e bağlısınız!");
         }
     });
-
+// Ürün bilgilerini alma butonunun olayı
     getProductsButton.addEventListener('click', function() {
         if (socket) {
             socket.emit('get_products');
@@ -50,6 +51,7 @@ const sendMButton = document.getElementById('sendMButton');
             alert("Önce socket'e bağlanmalısınız!");
         }
     });
+     // X değerini gönderme butonunun olayı
     sendXButton.addEventListener('click', function() {
     if (socket) {
         socket.emit('send_value', 'X');
@@ -59,7 +61,7 @@ const sendMButton = document.getElementById('sendMButton');
         alert("Önce socket'e bağlanmalısınız!");
     }
 });
-
+ // M değerini gönderme butonunun olayı
 sendMButton.addEventListener('click', function() {
     if (socket) {
         socket.emit('send_value', 'M');
