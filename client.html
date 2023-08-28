@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io Test</title>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+  <script>
+    const socket = io.connect('http://localhost:3000');
+
+    socket.on('connect', function() {
+      socket.emit('get_products');
+    });
+
+    socket.on('products', function(data) {
+      console.log(data); // Bu kısımda ürün bilgileri konsola yazdırılır.
+    });
+
+    socket.on('error', function(errorMessage) {
+      console.error(errorMessage);
+    });
+</script>
+</body>
+</html>

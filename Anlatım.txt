@@ -1,0 +1,11 @@
+
+Merhaba,
+
+1-urunler.json dosyasında ki bilgiler doğrultusunda bir mysql db oluşturun.
+2-urunler.json dosyasında ki verileri db ye yazacak bir kod oluşturun.
+3-Ürün bilgilerini alabileceğimiz bir socket oluşturun.
+3-Bir sayfada 2 adet buton oluşturun ve socketi sayfaya bağlayın.
+4-Butonların biri X diğeri M değerlerini sockete göndersin.
+5-Gönderilen değere göre socket ürün bilgilerini göndersin.
+
+Dosyaları her hangi bir yere upload edip,size ulaşılan numaradan bize ulaşabilirsiniz.
