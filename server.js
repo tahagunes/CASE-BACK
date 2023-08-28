@@ -53,10 +53,27 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Kullanıcı bağlantıyı kesdi');
   });
-  socket.on('send_value', (value) => {
-    console.log('Alınan değer:', value);
+//   socket.on('send_value', (value) => {
+//     console.log('Alınan değer:', value);
+// });
+socket.on('send_value', (value) => {
+  console.log('Alınan değer:', value);
+  
+  let query = `
+      SELECT DISTINCT products.* 
+      FROM products
+      JOIN product_sizes ON products.id = product_sizes.product_id
+      WHERE product_sizes.size = ?
+  `;
+  
+  connection.query(query, [value], (error, results) => {
+      if (error) {
+          socket.emit('error', 'Veritabanında bir hata oluştu');
+          return;
+      }
+      socket.emit('products', results);
+  });
 });
-
 });
 
 server.listen(3000, () => {
