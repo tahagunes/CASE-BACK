@@ -53,6 +53,10 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Kullanıcı bağlantıyı kesdi');
   });
+  socket.on('send_value', (value) => {
+    console.log('Alınan değer:', value);
+});
+
 });
 
 server.listen(3000, () => {
